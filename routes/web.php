@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 // returns the login form
 
 Route::get('/login', AuthController::class. '@showLoginForm')->name('login');
@@ -38,4 +39,30 @@ Route::put('/products/{product}', ProductController::class .'@update')->name('pr
 // deletes a product
 Route::delete('/products/{product}', ProductController::class .'@destroy')->name('products.destroy');
 
+
+
+// returns the about page
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+// returns the contacts page
+Route::get('/contacts/create', ContactController::class . '@create')->name('contacts.create');
+
+// adds a contact message to the database
+Route::post('/contacts/create', ContactController::class . '@store')->name('contacts.store');
+
+
+// returns the contacts page dashboard
+Route::get('/contacts/dashboard', [ContactController::class, 'dashboard'])->name('dashboard');
+
+// Show a specific message
+Route::get('/contacts/{message}', ContactController::class .'@show')->name('contacts.show');
+
+
+// returns the contacts page
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+
+// deletes a message
+Route::delete('/contacts/{message}', ContactController::class .'@destroy')->name('contacts.destroy');
 

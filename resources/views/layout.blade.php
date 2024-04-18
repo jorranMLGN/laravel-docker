@@ -14,12 +14,25 @@
 <header>
     <nav class="navbar navbar-expand-lg  navbar-light bg-warning border border-black">
         <div class="container-fluid">
-            <a class="navbar-brand h1" href={{ route('home') }}>© BuisBezorgd</a>
+            <div >
+                <a class="navbar-brand h1" href={{ route('home') }}>© BuisBezorgd</a>
+                <img src="{{ asset('images/drunk_dead.png') }}" alt="logo" class="rounded-full rounded" width="100px"/>
+                <di>
+                    <a href="{{ route('home') }}" class="btn btn-primary m-2">Home</a>
+
+                    <a href="{{ route('about') }}" class="btn btn-primary m-2">about</a>
+                    <a href="{{ route('contacts.create') }}" class="btn btn-primary m-2">contact</a>
+                </di>
+            </div>
+
         </div>
+
         @auth
             <div class="flex gap-2 flex-col">
-                <a href="{{ route('products.index') }}" class="btn btn-primary m-2">View products</a>
+                <a href="{{ route('products.index') }}" class="btn btn-primary m-2">Admin Panel</a>
+                <a href="{{ route('contacts.index') }}" class="btn btn-primary m-2">Messages</a>
                 <a href="{{ route('logout') }}" class="btn btn-danger m-2">Logout</a>
+
             </div>
         @endauth
         @if(!auth()->check())
