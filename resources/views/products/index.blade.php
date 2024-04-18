@@ -1,7 +1,6 @@
 @extends('layout')
-
 @section('content')
-    @auth
+    @if(Auth::check() && Auth::user()->role == 1)
         <div class="container mt-5">
             <div class="row">
                 @foreach ($products as $product)
@@ -41,8 +40,7 @@
                 @endforeach
             </div>
         </div>
-    @elseauth
-
+    @else
         <div class="container h-100 mt-5">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-10 col">
@@ -53,6 +51,6 @@
             </div>
         </div>
 
-    @endauth
+    @endif
 
 @endsection

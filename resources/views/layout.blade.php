@@ -12,16 +12,19 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg  navbar-light bg-warning">
+    <nav class="navbar navbar-expand-lg  navbar-light bg-warning border border-black">
         <div class="container-fluid">
-            <a class="navbar-brand h1" href={{ route('home') }}>Products</a>
+            <a class="navbar-brand h1" href={{ route('home') }}>© BuisBezorgd</a>
         </div>
         @auth
-            <a href="{{ route('products.create') }}" class="btn btn-primary">Add Product</a>
-            <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
+            <div class="flex gap-2 flex-col">
+                <a href="{{ route('products.index') }}" class="btn btn-primary m-2">View products</a>
+                <a href="{{ route('logout') }}" class="btn btn-danger m-2">Logout</a>
+            </div>
         @endauth
         @if(!auth()->check())
-            <a href="{{ route('login') }}" class="btn btn-primary m-4">Login</a>
+            <a href="{{ route('login') }}" class="btn btn-primary m-4 ">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-primary m-4">Register</a>
         @endif
 
     </nav>
@@ -35,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center">© 2021 Je kale vader</p>
+                    <p class="text-center">© BuisBezorgd</p>
                 </div>
             </div>
         </div>

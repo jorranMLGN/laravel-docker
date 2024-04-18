@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,7 +14,19 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('products.index', compact('products'));
+
+        if (Auth::check()) {
+        $user = Auth::user(); // Get the currently authenticated user
+        $role = $user->role; // Get the role of the currently authenticated user
+        return view('products.index', compact('products', 'role'));
+    } else {
+        // Handle the case where no user is authenticated
+        // For example, redirect to the login page
+            return view('products.index', compact('products'));
+
+        }
+
+
     }
 
     /**

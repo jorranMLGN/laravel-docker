@@ -24,8 +24,8 @@ Route::get('/logout', AuthController::class. '@logout')->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // returns the home page with all products
-Route::get('/products', 'ProductController@index')->name('index');// returns the home page with all products
 Route::get('/products', ProductController::class . '@index')->name('products.index');
+// returns the form for creating a product
 Route::get('/products/create', ProductController::class . '@create')->name('products.create');
 // adds a product to the database
 Route::post('/products', ProductController::class .'@store')->name('products.store');

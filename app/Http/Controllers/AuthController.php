@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
+
+
     public function showLoginForm()
     {
         return view('login');
@@ -58,12 +66,10 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    public function index()
+
+    public function role()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        return Auth::getUser()->role;
     }
-
-
 
 }
