@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,7 +10,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('login');
     }
 
     public function login(Request $request)
@@ -27,18 +28,42 @@ class AuthController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.registration');
+        return view('registration');
     }
 
     public function register(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        if (User::where('email', $validatedData['email'])->exists()) {
+            return back()->withErrors(['Email already exists']);
         }
 
-        return back()->withErrors(['Registration failed']);
-
-
+        User::create($validatedData);
+        return redirect()->route('dashboard')->with('Success', 'Registration successfully.');
     }
+
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
+
+
+
 }
